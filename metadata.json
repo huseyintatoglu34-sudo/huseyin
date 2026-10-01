@@ -1,0 +1,6 @@
+{
+  "name": "Hafta 30 - Kişisel 30 Haftalık Yolculuk",
+  "description": "30 haftalık kişisel gelişim, hedef, alışkanlık ve kazanım takip platformu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
