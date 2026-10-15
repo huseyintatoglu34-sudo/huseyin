@@ -167,7 +167,15 @@ function generateFenerbahceWeeks(): WeekData[] {
       },
       deliverable: item.d,
       deliverableCompleted: false,
-      objectives: [
+      externalLink: weekNumber === 3 ? {
+        title: '3. Hafta Özel Oyunu (oyun-ten-omega.vercel.app)',
+        url: 'https://oyun-ten-omega.vercel.app/',
+      } : undefined,
+      objectives: weekNumber === 3 ? [
+        { id: '1', text: `${item.t} kapsamında haftalık kritik aksiyonu tamamla.`, completed: false },
+        { id: '2', text: '3. Hafta Oyun Alanına Gir: https://oyun-ten-omega.vercel.app/', completed: false },
+        { id: '3', text: 'Sarı lacivert odakla derin çalışma seansını uygula ve alışkanlık zincirini koru.', completed: false },
+      ] : [
         { id: '1', text: `${item.t} kapsamında haftalık kritik aksiyonu tamamla.`, completed: false },
         { id: '2', text: 'Sarı lacivert odakla 5 gün boyunca derin çalışma seansını uygula.', completed: false },
         { id: '3', text: 'Şampiyonluk disipliniyle haftalık alışkanlık zincirini koru.', completed: false },

@@ -32,6 +32,10 @@ export interface WeekData {
   };
   deliverable: string;
   deliverableCompleted: boolean;
+  externalLink?: {
+    title: string;
+    url: string;
+  };
   objectives: Objective[];
   habits: HabitItem[];
   reflection: WeekReflection;

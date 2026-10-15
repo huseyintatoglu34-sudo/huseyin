@@ -18,7 +18,9 @@ import {
   Edit2,
   Check,
   Trophy,
-  Crown
+  Crown,
+  Gamepad2,
+  ExternalLink
 } from 'lucide-react';
 
 interface WeekDetailProps {
@@ -336,6 +338,43 @@ export const WeekDetail: React.FC<WeekDetailProps> = ({
           </div>
         </div>
       </section>
+
+      {/* External Link / Interactive Game Banner (Week 3) */}
+      {(week.externalLink || week.weekNumber === 3) && (
+        <section className="relative overflow-hidden p-6 rounded-2xl border-2 border-yellow-400 bg-gradient-to-r from-yellow-500/20 via-[#0a1e45] to-[#071530] shadow-xl text-white">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-xs font-black text-yellow-400 uppercase tracking-wide">
+                <Gamepad2 className="w-4 h-4 text-yellow-400" />
+                <span>3. Hafta Özel İnteraktif Oyun Alanı</span>
+                <span className="text-[10px] font-mono bg-yellow-400 text-neutral-950 font-bold px-1.5 py-0.2 rounded">
+                  AKTİF
+                </span>
+              </div>
+              <h2 className="text-xl font-black text-white flex items-center gap-2">
+                <span>{week.externalLink?.title || '3. Hafta Özel Oyunu (oyun-ten-omega.vercel.app)'}</span>
+              </h2>
+              <p className="text-xs text-neutral-300 max-w-xl leading-relaxed">
+                3. haftaya özel olarak entegre edilen bu bağlantıya tıklayarak interaktif oyuna doğrudan giriş yapabilir ve haftalık görevinizi tamamlayabilirsiniz.
+              </p>
+              <div className="pt-1 text-[11px] font-mono text-yellow-300/90 truncate">
+                {week.externalLink?.url || 'https://oyun-ten-omega.vercel.app/'}
+              </div>
+            </div>
+
+            <a
+              href={week.externalLink?.url || 'https://oyun-ten-omega.vercel.app/'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-black rounded-xl text-sm transition-transform active:scale-95 shadow-lg shadow-yellow-400/25 whitespace-nowrap self-start sm:self-auto cursor-pointer"
+            >
+              <Gamepad2 className="w-4 h-4 text-neutral-950" />
+              <span>Oyuna Giriş Yap</span>
+              <ExternalLink className="w-4 h-4 text-neutral-950 stroke-[3]" />
+            </a>
+          </div>
+        </section>
+      )}
 
       {/* SECTION 1: Key Objectives & Tasks */}
       <section className="p-6 rounded-2xl border border-blue-900 bg-[#071635] shadow-sm space-y-4">

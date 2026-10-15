@@ -41,6 +41,15 @@ const defaultResources: ResourceItem[] = [
     createdAt: new Date().toISOString(),
   },
   {
+    id: 'res_oyun_hafta3',
+    weekNumber: 3,
+    title: '3. Hafta Özel Oyunu (oyun-ten-omega.vercel.app)',
+    url: 'https://oyun-ten-omega.vercel.app/',
+    notes: '3. hafta kapsamında oynamak ve deneyimlemek üzere hazırlanan özel interaktif oyun platformu.',
+    category: 'Özel Oyun',
+    createdAt: new Date().toISOString(),
+  },
+  {
     id: 'res_3',
     weekNumber: 7,
     title: 'Deep Work & Yüksek Saha Presi Disiplini',
@@ -98,6 +107,33 @@ export function loadStore(): JourneyStore {
     }
     if (!parsed.session) {
       parsed.session = defaultSession;
+    }
+    // Ensure Week 3 has the requested external game link
+    if (parsed.weeks && parsed.weeks[2]) {
+      parsed.weeks[2].externalLink = {
+        title: '3. Hafta Özel Oyunu (oyun-ten-omega.vercel.app)',
+        url: 'https://oyun-ten-omega.vercel.app/',
+      };
+      // If objective not added yet, add it
+      if (!parsed.weeks[2].objectives.some((o: any) => o.text.includes('oyun-ten-omega'))) {
+        parsed.weeks[2].objectives.unshift({
+          id: 'oyun_link_3',
+          text: '3. Hafta Özel Oyununa Gir ve Tamamla (https://oyun-ten-omega.vercel.app/)',
+          completed: false,
+        });
+      }
+    }
+    // Ensure resource is present
+    if (parsed.resources && !parsed.resources.some((r: any) => r.url === 'https://oyun-ten-omega.vercel.app/')) {
+      parsed.resources.unshift({
+        id: 'res_oyun_hafta3',
+        weekNumber: 3,
+        title: '3. Hafta Özel Oyunu (oyun-ten-omega.vercel.app)',
+        url: 'https://oyun-ten-omega.vercel.app/',
+        notes: '3. hafta kapsamında oynamak ve deneyimlemek üzere hazırlanan özel interaktif oyun platformu.',
+        category: 'Özel Oyun',
+        createdAt: new Date().toISOString(),
+      });
     }
     return parsed;
   } catch (e) {

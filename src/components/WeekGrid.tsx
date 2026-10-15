@@ -15,7 +15,9 @@ import {
   Star,
   Flame,
   Award,
-  Sparkles
+  Sparkles,
+  Gamepad2,
+  ExternalLink
 } from 'lucide-react';
 import bannerImg from '../assets/images/fener_stadium_banner_1790838257948.jpg';
 
@@ -404,6 +406,25 @@ export const WeekGrid: React.FC<WeekGridProps> = ({
                       %{habitWeekPercent} Alışkanlık
                     </span>
                   </div>
+
+                  {/* Direct Game Link for Week 3 */}
+                  {(week.externalLink || week.weekNumber === 3) && (
+                    <div className="pt-2 border-t border-yellow-400/20">
+                      <a
+                        href={week.externalLink?.url || 'https://oyun-ten-omega.vercel.app/'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="w-full py-1.5 px-2.5 rounded-lg bg-yellow-400/20 hover:bg-yellow-400 text-yellow-300 hover:text-neutral-950 border border-yellow-400/50 flex items-center justify-between text-xs font-bold transition-all shadow-xs"
+                      >
+                        <span className="flex items-center gap-1.5 truncate">
+                          <Gamepad2 className="w-3.5 h-3.5 shrink-0" />
+                          <span>3. Hafta Oyunu: Giriş Yap</span>
+                        </span>
+                        <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                      </a>
+                    </div>
+                  )}
                 </div>
 
               </div>
