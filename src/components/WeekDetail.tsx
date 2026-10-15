@@ -20,7 +20,8 @@ import {
   Trophy,
   Crown,
   Gamepad2,
-  ExternalLink
+  ExternalLink,
+  FolderOpen
 } from 'lucide-react';
 
 interface WeekDetailProps {
@@ -339,42 +340,58 @@ export const WeekDetail: React.FC<WeekDetailProps> = ({
         </div>
       </section>
 
-      {/* External Link / Interactive Game Banner (Week 3) */}
-      {(week.externalLink || week.weekNumber === 3) && (
-        <section className="relative overflow-hidden p-6 rounded-2xl border-2 border-yellow-400 bg-gradient-to-r from-yellow-500/20 via-[#0a1e45] to-[#071530] shadow-xl text-white">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-xs font-black text-yellow-400 uppercase tracking-wide">
-                <Gamepad2 className="w-4 h-4 text-yellow-400" />
-                <span>3. Hafta Özel İnteraktif Oyun Alanı</span>
-                <span className="text-[10px] font-mono bg-yellow-400 text-neutral-950 font-bold px-1.5 py-0.2 rounded">
-                  AKTİF
-                </span>
-              </div>
-              <h2 className="text-xl font-black text-white flex items-center gap-2">
-                <span>{week.externalLink?.title || '3. Hafta Özel Oyunu (oyun-ten-omega.vercel.app)'}</span>
-              </h2>
-              <p className="text-xs text-neutral-300 max-w-xl leading-relaxed">
-                3. haftaya özel olarak entegre edilen bu bağlantıya tıklayarak interaktif oyuna doğrudan giriş yapabilir ve haftalık görevinizi tamamlayabilirsiniz.
-              </p>
-              <div className="pt-1 text-[11px] font-mono text-yellow-300/90 truncate">
-                {week.externalLink?.url || 'https://oyun-ten-omega.vercel.app/'}
-              </div>
-            </div>
+      {/* External Link / Interactive Game or Google Drive Banner (Week 3 & Week 4) */}
+      {(week.externalLink || week.weekNumber === 3 || week.weekNumber === 4) && (() => {
+        const url = week.externalLink?.url || (week.weekNumber === 4 
+          ? 'https://drive.google.com/drive/folders/1OCd7AC6bTzR9f0uH4nkOQW4dJcXZrlBq?usp=sharing' 
+          : 'https://oyun-ten-omega.vercel.app/');
+        const isDrive = url.includes('drive.google.com') || week.weekNumber === 4;
+        const defaultTitle = isDrive 
+          ? '4. Hafta Özel Dokümanları & Google Drive Klasörü'
+          : '3. Hafta Özel Oyunu (oyun-ten-omega.vercel.app)';
+        const title = week.externalLink?.title || defaultTitle;
+        const description = isDrive
+          ? '4. haftaya özel hazırlanan bu Google Drive klasörüne tıklayarak ilgili dokümanlara, belgelere ve çalışma materyallerine doğrudan erişebilirsiniz.'
+          : '3. haftaya özel olarak entegre edilen bu bağlantıya tıklayarak interaktif oyuna doğrudan giriş yapabilir ve haftalık görevinizi tamamlayabilirsiniz.';
+        const buttonText = isDrive ? 'Drive Klasörünü Aç' : 'Oyuna Giriş Yap';
+        const badgeText = isDrive ? '4. Hafta Özel Google Drive Arşivi' : '3. Hafta Özel İnteraktif Oyun Alanı';
 
-            <a
-              href={week.externalLink?.url || 'https://oyun-ten-omega.vercel.app/'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-black rounded-xl text-sm transition-transform active:scale-95 shadow-lg shadow-yellow-400/25 whitespace-nowrap self-start sm:self-auto cursor-pointer"
-            >
-              <Gamepad2 className="w-4 h-4 text-neutral-950" />
-              <span>Oyuna Giriş Yap</span>
-              <ExternalLink className="w-4 h-4 text-neutral-950 stroke-[3]" />
-            </a>
-          </div>
-        </section>
-      )}
+        return (
+          <section className="relative overflow-hidden p-6 rounded-2xl border-2 border-yellow-400 bg-gradient-to-r from-yellow-500/20 via-[#0a1e45] to-[#071530] shadow-xl text-white">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-xs font-black text-yellow-400 uppercase tracking-wide">
+                  {isDrive ? <FolderOpen className="w-4 h-4 text-yellow-400" /> : <Gamepad2 className="w-4 h-4 text-yellow-400" />}
+                  <span>{badgeText}</span>
+                  <span className="text-[10px] font-mono bg-yellow-400 text-neutral-950 font-bold px-1.5 py-0.2 rounded">
+                    AKTİF
+                  </span>
+                </div>
+                <h2 className="text-xl font-black text-white flex items-center gap-2">
+                  <span>{title}</span>
+                </h2>
+                <p className="text-xs text-neutral-300 max-w-xl leading-relaxed">
+                  {description}
+                </p>
+                <div className="pt-1 text-[11px] font-mono text-yellow-300/90 truncate max-w-lg">
+                  {url}
+                </div>
+              </div>
+
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-black rounded-xl text-sm transition-transform active:scale-95 shadow-lg shadow-yellow-400/25 whitespace-nowrap self-start sm:self-auto cursor-pointer"
+              >
+                {isDrive ? <FolderOpen className="w-4 h-4 text-neutral-950" /> : <Gamepad2 className="w-4 h-4 text-neutral-950" />}
+                <span>{buttonText}</span>
+                <ExternalLink className="w-4 h-4 text-neutral-950 stroke-[3]" />
+              </a>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* SECTION 1: Key Objectives & Tasks */}
       <section className="p-6 rounded-2xl border border-blue-900 bg-[#071635] shadow-sm space-y-4">

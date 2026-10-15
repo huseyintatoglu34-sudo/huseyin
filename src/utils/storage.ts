@@ -50,6 +50,15 @@ const defaultResources: ResourceItem[] = [
     createdAt: new Date().toISOString(),
   },
   {
+    id: 'res_drive_hafta4',
+    weekNumber: 4,
+    title: '4. Hafta Özel Dokümanları & Google Drive Klasörü',
+    url: 'https://drive.google.com/drive/folders/1OCd7AC6bTzR9f0uH4nkOQW4dJcXZrlBq?usp=sharing',
+    notes: '4. haftaya özel hazırlanan Google Drive doküman, belge ve materyal arşivi.',
+    category: 'Drive & Dokümanlar',
+    createdAt: new Date().toISOString(),
+  },
+  {
     id: 'res_3',
     weekNumber: 7,
     title: 'Deep Work & Yüksek Saha Presi Disiplini',
@@ -123,7 +132,22 @@ export function loadStore(): JourneyStore {
         });
       }
     }
-    // Ensure resource is present
+    // Ensure Week 4 has the requested Google Drive link
+    if (parsed.weeks && parsed.weeks[3]) {
+      parsed.weeks[3].externalLink = {
+        title: '4. Hafta Özel Dokümanları & Google Drive Klasörü',
+        url: 'https://drive.google.com/drive/folders/1OCd7AC6bTzR9f0uH4nkOQW4dJcXZrlBq?usp=sharing',
+      };
+      // If objective not added yet, add it
+      if (!parsed.weeks[3].objectives.some((o: any) => o.text.includes('Google Drive') || o.text.includes('1OCd7AC6bTzR9f0uH4nkOQW4dJcXZrlBq'))) {
+        parsed.weeks[3].objectives.unshift({
+          id: 'drive_link_4',
+          text: '4. Hafta Google Drive Klasörünü Aç ve Materyalleri İncele',
+          completed: false,
+        });
+      }
+    }
+    // Ensure resources are present
     if (parsed.resources && !parsed.resources.some((r: any) => r.url === 'https://oyun-ten-omega.vercel.app/')) {
       parsed.resources.unshift({
         id: 'res_oyun_hafta3',
@@ -132,6 +156,17 @@ export function loadStore(): JourneyStore {
         url: 'https://oyun-ten-omega.vercel.app/',
         notes: '3. hafta kapsamında oynamak ve deneyimlemek üzere hazırlanan özel interaktif oyun platformu.',
         category: 'Özel Oyun',
+        createdAt: new Date().toISOString(),
+      });
+    }
+    if (parsed.resources && !parsed.resources.some((r: any) => r.url?.includes('1OCd7AC6bTzR9f0uH4nkOQW4dJcXZrlBq'))) {
+      parsed.resources.unshift({
+        id: 'res_drive_hafta4',
+        weekNumber: 4,
+        title: '4. Hafta Özel Dokümanları & Google Drive Klasörü',
+        url: 'https://drive.google.com/drive/folders/1OCd7AC6bTzR9f0uH4nkOQW4dJcXZrlBq?usp=sharing',
+        notes: '4. haftaya özel hazırlanan Google Drive doküman, belge ve materyal arşivi.',
+        category: 'Drive & Dokümanlar',
         createdAt: new Date().toISOString(),
       });
     }

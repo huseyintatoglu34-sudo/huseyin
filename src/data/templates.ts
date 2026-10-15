@@ -170,11 +170,18 @@ function generateFenerbahceWeeks(): WeekData[] {
       externalLink: weekNumber === 3 ? {
         title: '3. Hafta Özel Oyunu (oyun-ten-omega.vercel.app)',
         url: 'https://oyun-ten-omega.vercel.app/',
+      } : weekNumber === 4 ? {
+        title: '4. Hafta Özel Dokümanları & Google Drive Klasörü',
+        url: 'https://drive.google.com/drive/folders/1OCd7AC6bTzR9f0uH4nkOQW4dJcXZrlBq?usp=sharing',
       } : undefined,
       objectives: weekNumber === 3 ? [
         { id: '1', text: `${item.t} kapsamında haftalık kritik aksiyonu tamamla.`, completed: false },
         { id: '2', text: '3. Hafta Oyun Alanına Gir: https://oyun-ten-omega.vercel.app/', completed: false },
         { id: '3', text: 'Sarı lacivert odakla derin çalışma seansını uygula ve alışkanlık zincirini koru.', completed: false },
+      ] : weekNumber === 4 ? [
+        { id: '1', text: `${item.t} kapsamında haftalık kritik aksiyonu tamamla.`, completed: false },
+        { id: '2', text: '4. Hafta Google Drive Klasörünü Aç ve Materyalleri İncele', completed: false },
+        { id: '3', text: '90 dakikalık kesintisiz 5 derin odak seansını başarıyla tamamla.', completed: false },
       ] : [
         { id: '1', text: `${item.t} kapsamında haftalık kritik aksiyonu tamamla.`, completed: false },
         { id: '2', text: 'Sarı lacivert odakla 5 gün boyunca derin çalışma seansını uygula.', completed: false },
